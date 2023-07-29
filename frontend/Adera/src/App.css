@@ -3,13 +3,16 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-image: url('assets/adera.svg');
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  /* height: 6em; */
+  /* padding: 1.5em; */
   will-change: filter;
   transition: filter 300ms;
+  -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
