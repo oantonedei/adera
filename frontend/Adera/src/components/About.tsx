@@ -36,7 +36,7 @@ function About({ status, startSurvey }: Props) {
         </div>
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            We are bringing African fashion to the world
+            Africa's Finest Threads, Tailored to the World
           </h1>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             We are building the Airbnb of African fashion. Providing a
