@@ -4,6 +4,7 @@ import About from "./components/About";
 import Header from "./components/Header";
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
+import ParticlesComponent from "./components/ParticlesComponent";
 
 function App() {
   const [surveyVisible, setSurveyVisible] = useState(false);
@@ -15,13 +16,14 @@ function App() {
 
   return (
     <>
-      <div className="bg-white">
+      <div>
         <Header setMenu={setMobileMenuOpen} mobileMenuOpen={mobileMenuOpen} />
         {surveyVisible ? (
           <Survey />
         ) : (
           <About status={surveyVisible} startSurvey={handleClick} />
         )}
+      <ParticlesComponent id="tsparticles" />
       </div>
     </>
   );
