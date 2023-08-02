@@ -1,9 +1,24 @@
+import { styled } from "styled-components";
+
 interface Props {
   status: boolean;
   startSurvey: () => void;
 }
 
 function About({ status, startSurvey }: Props) {
+  const Div = styled.div`
+    --stacks: ${3};
+  `;
+  const SpanOne = styled.span`
+    --index: ${0};
+  `;
+  const SpanTwo = styled.span`
+    --index: ${1};
+  `;
+  const SpanThree = styled.span`
+    --index: ${2};
+  `;
+
   return (
     <div className="relative isolate px-6 pt-14 lg:px-8">
       <div
@@ -21,7 +36,11 @@ function About({ status, startSurvey }: Props) {
       <div className="mx-auto max-w-2xl py-4">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Adera App
+            <Div className="stack">
+              <SpanOne>Adera</SpanOne>
+              <SpanTwo>Adera</SpanTwo>
+              <SpanThree>Adera</SpanThree>
+            </Div>
           </h1>
         </div>
         <br />

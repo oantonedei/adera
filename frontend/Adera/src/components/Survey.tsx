@@ -3,7 +3,7 @@ import Graph from "./Graph";
 import { useState } from "react";
 
 function Survey() {
-  const [graphVisible, setGraphVisible] = useState(false);
+  const [graphVisible, setGraphVisible] = useState(true);
 
   return (
     <>
