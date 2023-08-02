@@ -6,7 +6,7 @@ import ThirdQuestion from "./questions/ThirdQuestion";
 import FourthQuestion from "./questions/FourthQuestion";
 import FifthQuestion from "./questions/FifthQuestion";
 import Loader from "./components/Loader";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "./components/ProgressBar";
 
 const questions = [
   {

@@ -1,10 +1,10 @@
 import "./App.css";
-import Survey from "./components/Survey";
-import About from "./components/About";
-import Header from "./components/Header";
+import Survey from "./components/homepage/Survey";
+import About from "./components/homepage/About";
+import Header from "./components/homepage/Header";
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
-import ParticlesComponent from "./components/ParticlesComponent";
+import ParticlesComponent from "./components/homepage/ParticlesComponent";
 
 function App() {
   const [surveyVisible, setSurveyVisible] = useState(false);
@@ -23,7 +23,7 @@ function App() {
         ) : (
           <About status={surveyVisible} startSurvey={handleClick} />
         )}
-      <ParticlesComponent id="tsparticles" />
+        <ParticlesComponent id="tsparticles" />
       </div>
     </>
   );

@@ -1,9 +1,9 @@
-import Form from "./forms/Form";
-import Graph from "./Graph";
+import Form from "../forms/Form";
+import Graph from "../graph/Graph";
 import { useState } from "react";
 
 function Survey() {
-  const [graphVisible, setGraphVisible] = useState(true);
+  const [graphVisible, setGraphVisible] = useState(false);
 
   return (
     <>
@@ -21,8 +21,12 @@ function Survey() {
           />
         </div>
         <div className="mx-auto max-w-2xl py-4">
-          {/* <button onClick={() => setVisible(!visible)}>Toggle</button> */}
-          {graphVisible || <Form setGraphVisible={setGraphVisible} graphVisible={graphVisible} />}
+          {graphVisible || (
+            <Form
+              setGraphVisible={setGraphVisible}
+              graphVisible={graphVisible}
+            />
+          )}
           {graphVisible && <Graph />}
         </div>
       </div>
