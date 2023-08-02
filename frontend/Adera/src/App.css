@@ -62,7 +62,7 @@
   --clip-top: calc(var(--stack-height) * var(--index));
   --clip-bottom: calc(var(--stack-height) * var(--inverse-index));
   clip-path: inset(var(--clip-top) 0 var(--clip-bottom) 0);
-  animation: stack 340ms cubic-bezier(.46, .29, 0, 1.24) 1 backwards calc(var(--index) * 120ms), glitch 2s ease infinite 2s alternate-reverse;
+  animation: stack 340ms cubic-bezier(.46, .29, 0, 1.24) 1 backwards calc(var(--index) * 120ms), glitch 1.5s ease infinite 1.5s alternate-reverse;
 }
 
 .stack span:nth-child(odd) {
@@ -167,6 +167,7 @@ ul li:nth-child(1) a::before {
       #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%,
       #bc1888 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   border-bottom: 4px solid #dc2743;
 }
