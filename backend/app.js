@@ -10,6 +10,9 @@ mongoose
   .then((db) => console.log("DB is connected"))
   .catch((err) => console.log(err));
 
+//Import routes
+const surveyRoutes = require("./routers/surveyRoutes");
+
 //Initialize express
 const app = express();
 
@@ -31,4 +34,4 @@ app.use((err, req, res, next) => {
 });
 
 //Start server
-app.listen(4000, () => console.log("Server on port 4000"));
+app.listen(3000, () => console.log("Server on port 3000"));
