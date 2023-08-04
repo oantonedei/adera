@@ -7,6 +7,7 @@ import FourthQuestion from "./questions/FourthQuestion";
 import FifthQuestion from "./questions/FifthQuestion";
 import Loader from "./components/Loader";
 import ProgressBar from "./components/ProgressBar";
+import Error from "./Error";
 
 const questions = [
   {
@@ -43,11 +44,20 @@ interface IFormValues {
   frequency: string;
   recommendation: string;
   designer: string;
+  points: number;
+}
+
+interface IPoints {
+  [key: string]: number;
 }
 
 interface Props {
   setGraphVisible: (visible: boolean) => void;
+  setFormVisible: (visible: boolean) => void;
   graphVisible: boolean;
+  removeSurvey: () => void;
+  updateError: (error: any) => void;
+  setErrorVisible: (error: any) => void;
 }
 
 function getFormValues() {
@@ -60,23 +70,45 @@ function getFormValues() {
       frequency: "",
       recommendation: "",
       designer: "",
+      points: 0,
     };
   return JSON.parse(storedValues);
 }
 
-export default function Form({ setGraphVisible, graphVisible }: Props) {
+export default function Form({
+  setGraphVisible,
+  setFormVisible,
+  graphVisible,
+  removeSurvey,
+  updateError,
+  setErrorVisible,
+}: Props) {
   const [selected, setSelected] = useState(1);
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState<IFormValues>(getFormValues);
+  const [points, setPoints] = useState<IPoints>({});
 
   useEffect(() => {
     localStorage.setItem("formValues", JSON.stringify(formValues));
   }, [formValues]);
 
+  const addPoints = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setPoints({
+      ...points,
+      [e.target.name]:
+        e.target.getAttribute("data-points") !== null
+          ? parseInt(e.target.getAttribute("data-points")!)
+          : 0,
+    });
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
+    addPoints(e);
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
@@ -86,22 +118,54 @@ export default function Form({ setGraphVisible, graphVisible }: Props) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSelected(1);
-      setProgress(0);
-      setFormValues({
-        email: "",
-        country: "",
-        difficulty: "",
-        frequency: "",
-        recommendation: "",
-        designer: "",
+    let cummulativePoints = 0;
+    for (const s in points) {
+      cummulativePoints += points[s];
+    }
+
+    setFormValues({
+      ...formValues,
+      points: cummulativePoints,
+    });
+
+    const postedValue = {
+      ...formValues,
+      points: cummulativePoints,
+    };
+
+    fetch("http://localhost:3000/api/v1/survey", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postedValue),
+    })
+      .then((res) => {
+        if (res.status !== 200) {
+          updateError(res);
+          setFormVisible(false);
+          setGraphVisible(false);
+          setErrorVisible(true);
+        } else {
+          setLoading(false);
+          setSelected(1);
+          setProgress(0);
+          setFormValues({
+            email: "",
+            country: "",
+            difficulty: "",
+            frequency: "",
+            recommendation: "",
+            designer: "",
+            points: 0,
+          });
+          setGraphVisible(!graphVisible);
+          setFormVisible(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      localStorage.removeItem("formValues");
-      setGraphVisible(!graphVisible);
-      console.log(formValues);
-    }, 500);
   };
 
   return (

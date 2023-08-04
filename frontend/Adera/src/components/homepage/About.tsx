@@ -1,11 +1,10 @@
 import { styled } from "styled-components";
 
 interface Props {
-  status: boolean;
   startSurvey: () => void;
 }
 
-function About({ status, startSurvey }: Props) {
+function About({ startSurvey }: Props) {
   const Div = styled.div`
     --stacks: ${3};
   `;

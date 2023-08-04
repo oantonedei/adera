@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const SurveySchema = new mongoose.Schema(
     {
-        user_email: String,
+        email: String,
         country: String,
         difficulty: String,
         frequency: String,

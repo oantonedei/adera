@@ -14,26 +14,31 @@ const options = [
     key: 1,
     name: "Weekly",
     id: "weekly",
+    points: 100,
   },
   {
     key: 2,
     name: "Monthly",
     id: "monthly",
+    points: 75,
   },
   {
     key: 3,
     name: "Occasionally",
     id: "occasionally",
+    points: 50,
   },
   {
     key: 4,
     name: "Rarely",
     id: "rarely",
+    points: 25,
   },
   {
     key: 5,
     name: "Seasonally (Summer etc.)",
     id: "seasonally",
+    points: 25,
   },
 ];
 export default function ThirdQuestion({ handleChange, formValues }: Props) {
@@ -54,6 +59,7 @@ export default function ThirdQuestion({ handleChange, formValues }: Props) {
                   name="frequency"
                   type="radio"
                   value={option.name}
+                  data-points={option.points}  
                   className="focus:ring-indigo-600 h-4 w-4 text-indigo-600 border-gray-300"
                   onChange={handleChange}
                   checked = {formValues.frequency === option.name}

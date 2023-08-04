@@ -14,21 +14,25 @@ const options = [
     key: 1,
     name: "Very Difficult",
     id: "very-difficult",
+    points: 100,
   },
   {
     key: 2,
     name: "Moderately Difficult",
     id: "moderately-difficult",
+    points: 75,
   },
   {
     key: 3,
     name: "Not Difficult",
     id: "not-difficult",
+    points: 50,
   },
   {
     key: 4,
     name: "I don't shop for African wears",
     id: "non-shopper",
+    points: 25,
   },
 ];
 export default function SecondQuestion({ handleChange, formValues }: Props) {
@@ -48,6 +52,7 @@ export default function SecondQuestion({ handleChange, formValues }: Props) {
                   name="difficulty"
                   type="radio"
                   value={option.name}
+                  data-points={option.points}
                   className="focus:ring-indigo-600 h-4 w-4 text-indigo-600 border-gray-300"
                   onChange={handleChange}
                   checked = {formValues.difficulty === option.name}

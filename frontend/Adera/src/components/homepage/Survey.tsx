@@ -1,9 +1,32 @@
 import Form from "../forms/Form";
 import Graph from "../graph/Graph";
-import { useState } from "react";
+import Error from "../forms/Error";
+import { useEffect, useState } from "react";
 
-function Survey() {
+interface Props {
+  removeSurvey: () => void;
+}
+async function loadData() {
+  const response = await fetch("http://localhost:3000/api/v1/survey");
+  const results = await response.json();
+  return results.all_surveys;
+}
+function Survey({ removeSurvey }: Props) {
   const [graphVisible, setGraphVisible] = useState(false);
+  const [formVisible, setFormVisible] = useState(true);
+  const [errorVisible, setErrorVisible] = useState(false);
+  const [error, setError] = useState("");
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    loadData().then((results) => {
+      setData(results);
+    });
+  }, []);
+
+  const updateError = (error: any) => {
+    setError(error.message);
+    console.log("Error", error.body)
+  };
 
   return (
     <>
@@ -21,13 +44,26 @@ function Survey() {
           />
         </div>
         <div className="mx-auto max-w-2xl py-4">
-          {graphVisible || (
+          {formVisible && (
             <Form
               setGraphVisible={setGraphVisible}
+              setFormVisible={setFormVisible}
               graphVisible={graphVisible}
+              removeSurvey={removeSurvey}
+              updateError={updateError}
+              setErrorVisible={setErrorVisible}
             />
           )}
-          {graphVisible && <Graph />}
+          {data && graphVisible && (
+            <Graph data={data} removeSurvey={removeSurvey} />
+          )}
+          {errorVisible && (
+            <Error
+              err={error}
+              removeSurvey={removeSurvey}
+              setErrorVisible={setErrorVisible}
+            />
+          )}
         </div>
       </div>
     </>

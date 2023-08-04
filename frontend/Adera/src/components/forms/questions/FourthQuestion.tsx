@@ -14,21 +14,25 @@ const options = [
     key: 1,
     name: "Strongly Recommend",
     id: "strongly-recommend",
+    points: 100,
   },
   {
     key: 2,
     name: "Recommend",
     id: "recommend",
+    points: 75,
   },
   {
     key: 3,
     name: "Neutral",
     id: "neutral",
+    points: 50,
   },
   {
     key: 4,
     name: "I don't shop for African wears",
     id: "non-shopper",
+    points: 25,
   },
 ];
 export default function FourthQuestion({ handleChange, formValues }: Props) {
@@ -49,6 +53,7 @@ export default function FourthQuestion({ handleChange, formValues }: Props) {
                   name="recommendation"
                   type="radio"
                   value={option.name}
+                  data-points={option.points}
                   className="focus:ring-indigo-600 h-4 w-4 text-indigo-600 border-gray-300"
                   onChange={handleChange}
                   checked = {formValues.recommendation === option.name}

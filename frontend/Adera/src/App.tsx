@@ -19,9 +19,9 @@ function App() {
       <div>
         <Header setMenu={setMobileMenuOpen} mobileMenuOpen={mobileMenuOpen} />
         {surveyVisible ? (
-          <Survey />
+          <Survey removeSurvey={handleClick} />
         ) : (
-          <About status={surveyVisible} startSurvey={handleClick} />
+          <About startSurvey={handleClick} />
         )}
         <ParticlesComponent id="tsparticles" />
       </div>

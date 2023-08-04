@@ -21,16 +21,16 @@ app.use(cors());
 app.use(express.json());
 
 //Routes
-app.use("/api/survey", surveyRoutes);
+app.use("/api/v1/survey", surveyRoutes);
 
 //Error handling
 app.all("*", (req, res, next) => {
   next(new Error("Page Not Found", 404));
 });
 app.use((err, req, res, next) => {
-  console.log(err);
+  console.log("Error Here", err);
   const status = err.status || 500;
-  res.status(status).send("Something went wrong");
+  res.status(status).send(err.message || "Internal Server Error");
 });
 
 //Start server
