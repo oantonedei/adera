@@ -40,9 +40,9 @@ export default function FourthQuestion({ handleChange, formValues }: Props) {
     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
       <div className="sm:col-span-6">
         <label className="block text-md font-medium leading-6 text-gray-900 text-left">
-          Do you think it would be a good idea for Adera to bring your favorite
-          designers/tailors to your country, facilitating easier access to
-          African fashion wears through an online shop?
+          Would you recommend Adera brings your favourite designers/tailors to
+          your region for easier access to fashionable African wears through
+          an online shop?
         </label>
         <div className="mt-2">
           {options.map((option) => {
@@ -56,7 +56,8 @@ export default function FourthQuestion({ handleChange, formValues }: Props) {
                   data-points={option.points}
                   className="focus:ring-indigo-600 h-4 w-4 text-indigo-600 border-gray-300"
                   onChange={handleChange}
-                  checked = {formValues.recommendation === option.name}
+                  checked={formValues.recommendation === option.name}
+                  required
                 />
                 <label
                   htmlFor={option.id}

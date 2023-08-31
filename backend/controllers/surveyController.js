@@ -1,5 +1,23 @@
-const { SECRET } = require("../config.json");
+const { PublishCommand } = require("@aws-sdk/client-sns");
+const snsClient = require("../middlewares/snsClient");
+
+const { SECRET, TOPIC_ARN } = require("../config.json");
 const surveyModel = require("../models/surveyModel");
+
+/**
+ * @param {string | Record<string, any>} message - The message to send. Can be a plain string or an object
+ *                                                 if you are using the `json` `MessageStructure`.
+ * @param {string} topicArn - The ARN of the topic to which you would like to publish.
+ */
+const publish = async (message, topicArn) => {
+  const response = await snsClient.send(
+    new PublishCommand({
+      Message: message,
+      TopicArn: topicArn,
+    })
+  );
+  return response;
+};
 
 module.exports.addSurvey = async (req, res, next) => {
   try {
@@ -13,8 +31,16 @@ module.exports.addSurvey = async (req, res, next) => {
         message: "User already exists",
       });
     }
+
     const result = await surveyModel.create(survey_response);
-    res.json({ status: 200, result });
+
+    const message = {
+      email: survey_response.email,
+      country: survey_response.country,
+    };
+    const emailStatus = await publish(JSON.stringify(message), TOPIC_ARN);
+
+    res.json({ status: 200, result, emailStatus });
   } catch (error) {
     next(error);
   }

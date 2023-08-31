@@ -46,9 +46,8 @@ export default function ThirdQuestion({ handleChange, formValues }: Props) {
     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
       <div className="sm:col-span-6">
         <label className="block text-md font-medium leading-6 text-gray-900 text-left">
-          How frequently do you actively search for African fashionable wears?
-          (e.g. Ankara, Kente, Senators, Djellaba, Kitenge etc.) in your country
-          or online?
+          How frequently do you actively search for fashionable African wears in
+          your region or online?
         </label>
         <div className="mt-2">
           {options.map((option) => {
@@ -59,10 +58,11 @@ export default function ThirdQuestion({ handleChange, formValues }: Props) {
                   name="frequency"
                   type="radio"
                   value={option.name}
-                  data-points={option.points}  
+                  data-points={option.points}
                   className="focus:ring-indigo-600 h-4 w-4 text-indigo-600 border-gray-300"
                   onChange={handleChange}
-                  checked = {formValues.frequency === option.name}
+                  checked={formValues.frequency === option.name}
+                  required
                 />
                 <label
                   htmlFor={option.id}

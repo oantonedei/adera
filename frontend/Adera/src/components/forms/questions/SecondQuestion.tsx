@@ -40,8 +40,7 @@ export default function SecondQuestion({ handleChange, formValues }: Props) {
     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
       <div className="sm:col-span-6">
         <label className="block text-md font-medium leading-6 text-gray-900 text-left">
-          How difficult is it to find African fashionable wears (e.g. Ankara,
-          Kente, Senators, Djellaba, Kitenge etc.) in your country?
+          How difficult is it to find fashionable African wears in your region?
         </label>
         <div className="mt-2">
           {options.map((option) => {
@@ -55,7 +54,8 @@ export default function SecondQuestion({ handleChange, formValues }: Props) {
                   data-points={option.points}
                   className="focus:ring-indigo-600 h-4 w-4 text-indigo-600 border-gray-300"
                   onChange={handleChange}
-                  checked = {formValues.difficulty === option.name}
+                  checked={formValues.difficulty === option.name}
+                  required
                 />
                 <label
                   htmlFor={option.id}
