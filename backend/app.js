@@ -4,6 +4,18 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const { DB_SERVER } = require("./config");
 
+//Used to ensure https connection
+const fs =  require("fs");
+const https = require("https");
+
+const key = fs.readFileSync("private.key");
+const cert = fs.readFileSync("certificate.crt");
+
+const cred = {
+  key,
+  cert
+};
+
 mongoose.set("strictQuery", false);
 mongoose
   .connect(DB_SERVER, { useUnifiedTopology: true })
@@ -21,6 +33,9 @@ app.use(express.json());
 app.use(cors());
 
 //Routes
+app.get("/cert", (req, res) => {
+ res.sendFile(cert);
+});
 app.use("/api/v1/survey", surveyRoutes);
 
 //Error handling
@@ -35,3 +50,6 @@ app.use((err, req, res, next) => {
 
 //Start server
 app.listen(3000, () => console.log("Server on port 3000"));
+
+const httpsServer = https.createServer(cred, app);
+httpsServer.listen(8443);
