@@ -17,8 +17,8 @@ const surveyRoutes = require("./routers/surveyRoutes");
 const app = express();
 
 //Middlewares
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
 //Routes
 app.use("/api/v1/survey", surveyRoutes);
